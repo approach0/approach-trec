@@ -63,7 +63,7 @@ Promise.all([promise_docs, promise_topics, promise_judges]).then(() => {
 });
 
 app.use(history({verbose: true}));
-app.use(express.static('.'));
+app.use(express.static('./dist'));
 app.use(bodyParser.json());
 const port = 3838;
 app.listen(port);
@@ -295,7 +295,12 @@ function loadRunFiles () {
 				const docid = fields[2];
 				const rank = fields[3];
 				const score = fields[4];
-				const runid = fname.replace('/', '-'); /* instead of fields[5] */
+				var runid = fields[5];
+				if (fname.split('/').length > 1) {
+					/* use filename as runID when run file is
+					 * in a directory */
+					const runid = fname.replace('/', '-');
+				}
 				const doctex = doc[docid] || '';
 				var relevance = judge[qryid]  || {};
 				relevance = relevance[docid] || 'not judged';

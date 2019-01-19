@@ -39,9 +39,10 @@ export default {
 	},
 	created: function () {
 		var vm = this;
+		const url = `/${vm.$route.params['route']}/get/index.list`;
 		$.ajax({
 			type : "GET",
-			url : "get/index.list",
+			url : url,
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
 		}).done(function (json) {

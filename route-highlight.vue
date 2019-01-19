@@ -1,7 +1,7 @@
 <template>
 <div>
 
-<router-link v-bind:to="'/'">Back to run list</router-link><br/>
+<router-link v-bind:to="'/' + $route.params['route'] + '/'">Back to run list</router-link><br/>
 
 <h3>Query</h3>
 <div class="rawtex">{{ hi_qry_op }}</div>
@@ -85,16 +85,20 @@ export default {
 		},
 		updateResults: function () {
 			var vm = this;
-			const url_op = util.format('/get/%s/%s/%s/highlight_operands.json',
+			const url_op = util.format('/%s/get/%s/%s/%s/highlight_operands.json',
+				vm.$route.params['route'],
 				vm.$route.params.run,
 				vm.$route.params.qry,
 				vm.$route.params.doc
 			);
-			const url_tr = util.format('/get/%s/%s/%s/highlight_trees.json',
+			console.log(url_op)
+			const url_tr = util.format('/%s/get/%s/%s/%s/highlight_trees.json',
+				vm.$route.params['route'],
 				vm.$route.params.run,
 				vm.$route.params.qry,
 				vm.$route.params.doc
 			);
+			console.log(url_tr)
 			this.send_json(url_op, function (json) {
 				vm.hi_qry_op = json['qry'];
 				vm.hi_doc_op = json['doc'];

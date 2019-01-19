@@ -5,7 +5,7 @@
 <h5>Query rendered:</h5> [imath] {{ qrytex }} [/imath]
 
 <div class="results">
-<router-link v-bind:to="'/'">Back to run list</router-link><br/>
+<router-link v-bind:to="'/' + $route.params['route'] + '/'">Back to run list</router-link><br/>
 <router-link v-if="page > 1" v-bind:to="pageUri(-1)">&lt;&lt; Prev Page</router-link>
 <router-link v-if="page < totpages" v-bind:to="pageUri(1)">Next Page &gt;&gt;</router-link>
 <ul>
@@ -13,8 +13,8 @@
 		<span v-if="hit">
 		<b>rank</b>: {{hit.rank}}, <b>judge_rel</b>: {{hit.judge_rel}},
 		<b>docid</b>: {{hit.docid}}, <b>score</b>: {{hit.score}},
-		<router-link v-bind:to=
-		"'/' + $route.params.run + '/' + $route.params.qry + '/' + hit.docid + '/highlight'">
+		<router-link v-bind:to= "'/' + $route.params['route'] +
+		'/' + $route.params.run + '/' + $route.params.qry + '/' + hit.docid + '/highlight'">
 		[highlight]
 		</router-link>
 		<blockquote
@@ -62,12 +62,16 @@ export default {
 	},
 	methods: {
 		updateResults: function () {
-			var uri = '/get' + this.pageUri(0);
+			const route = this.$route.params['route'];
+			const runid = this.$route.params.run;
+			const qryid = this.$route.params.qry;
+			const page  = this.$route.params.page;
+			var url = util.format('/%s/get/%s/%s/page/%s', route, runid, qryid, page);
 			var vm = this;
 
 			$.ajax({
 				type : "GET",
-				url : uri,
+				url : url,
 				contentType: "application/json; charset=utf-8",
 				dataType: "json",
 			}).done(function (json) {
@@ -82,11 +86,12 @@ export default {
 			});
 		},
 		pageUri: function (incr) {
+			const route = this.$route.params['route'];
 			var runid = this.$route.params.run;
 			var qryid = this.$route.params.qry;
 			var page  = parseInt(this.$route.params.page);
 			var nextPage = (page + incr);
-			return util.format('/%s/%s/page/%d', runid, qryid, nextPage);
+			return util.format('/%s/%s/%s/page/%d', route, runid, qryid, nextPage);
 		}
 	}
 };

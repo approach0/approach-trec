@@ -7,7 +7,7 @@
 <h5>Query raw:</h5> {{ qrytex }}
 
 <div class="results">
-<router-link v-bind:to="'/'">Back to run list</router-link><br/>
+<router-link v-bind:to="'/' + $route.params['route'] + '/'">Back to run list</router-link><br/>
 <ol>
 	<li v-bind:id="hit.docid" v-for="hit in results">
 		[<a v-bind:href="'#' + hit.docid">#</a>]
@@ -55,7 +55,8 @@ export default {
 	},
 	methods: {
 		updateResults: function () {
-			var uri = '/get' + this.PerfectResUri();
+			const route = this.$route.params['route'];
+			var uri = `/${route}/get` + this.PerfectResUri();
 			var vm = this;
 
 			$.ajax({

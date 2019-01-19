@@ -13,23 +13,23 @@ const router = new VueRouter({
 	mode: 'history',
 	routes: [
 		{
-			path: '/',
+			path: '/:route/',
 			component: routeURIList
 		},
 		{
-			path: '/:run/:qry/page/:page',
+			path: '/:route/:run/:qry/page/:page',
 			component: routeResults
 		},
 		{
-			path: '/:run/:qry/judged',
+			path: '/:route/:run/:qry/judged',
 			component: routeJudged
 		},
 		{
-			path: '/:run/:qry/:doc/highlight',
+			path: '/:route/:run/:qry/:doc/highlight',
 			component: routeHighlight
 		},
 		{
-			path: '/:qry/perfect',
+			path: '/:route/:qry/perfect',
 			component: routePerfect
 		}
 	]
