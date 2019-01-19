@@ -39,7 +39,10 @@ export default {
 	},
 	created: function () {
 		var vm = this;
-		const url = `/${vm.$route.params['route']}/get/index.list`;
+		console.log('created')
+		var url = `/get/index.list`;
+		if (vm.$route.params['route'] !== undefined)
+			url = `/${vm.$route.params['route']}/get/index.list`;
 		$.ajax({
 			type : "GET",
 			url : url,

@@ -7,14 +7,14 @@
 <h5>Query raw:</h5> {{ qrytex }}
 
 <div class="results">
-<router-link v-bind:to="'/' + $route.params['route'] + '/'">Back to run list</router-link><br/>
+<router-link v-bind:to="prefix() + '/'">Back to run list</router-link><br/>
 <ol>
 	<li v-bind:id="hit.docid" v-for="hit in results">
 		[<a v-bind:href="'#' + hit.docid">#</a>]
 		<span v-if="hit">
 			<b>rank</b>: {{hit.rank}}, <b>judge_rel</b>: {{hit.judge_rel}},
 			<b>docid</b>: {{hit.docid}}, <b>score</b>: {{hit.score}}
-			<router-link v-bind:to="'/' + $route.params['route'] +
+			<router-link v-bind:to="prefix() +
 			'/' + $route.params.run + '/' + $route.params.qry + '/' + hit.docid + '/highlight'">
 			[highlight]
 			</router-link>
@@ -58,9 +58,14 @@ export default {
 		this.updateResults();
 	},
 	methods: {
-		updateResults: function () {
+		prefix: function (o) {
+			if (o === undefined)
+				return '';
 			const route = this.$route.params['route'];
-			var uri = `/${route}/get` + this.JudgedResUri();
+			return `/${route}`;
+		},
+		updateResults: function () {
+			var uri = this.prefix() + `/get` + this.JudgedResUri();
 			var vm = this;
 
 			$.ajax({

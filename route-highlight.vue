@@ -1,7 +1,7 @@
 <template>
 <div>
 
-<router-link v-bind:to="'/' + $route.params['route'] + '/'">Back to run list</router-link><br/>
+<router-link v-bind:to="prefix() + '/'">Back to run list</router-link><br/>
 
 <h3>Query</h3>
 <div class="rawtex">{{ hi_qry_op }}</div>
@@ -63,6 +63,12 @@ export default {
 		this.updateResults();
 	},
 	methods: {
+		prefix: function (o) {
+			if (o === undefined)
+				return '';
+			const route = this.$route.params['route'];
+			return `/${route}`;
+		},
 		renderMermaid: function () {
 			mermaid.init(undefined, ".mermaid");
 		},
@@ -85,15 +91,15 @@ export default {
 		},
 		updateResults: function () {
 			var vm = this;
-			const url_op = util.format('/%s/get/%s/%s/%s/highlight_operands.json',
-				vm.$route.params['route'],
+			const url_op = util.format('%s/get/%s/%s/%s/highlight_operands.json',
+				this.prefix(),
 				vm.$route.params.run,
 				vm.$route.params.qry,
 				vm.$route.params.doc
 			);
 			console.log(url_op)
-			const url_tr = util.format('/%s/get/%s/%s/%s/highlight_trees.json',
-				vm.$route.params['route'],
+			const url_tr = util.format('%s/get/%s/%s/%s/highlight_trees.json',
+				this.prefix(),
 				vm.$route.params.run,
 				vm.$route.params.qry,
 				vm.$route.params.doc

@@ -12,6 +12,28 @@ Vue.use(VueRouter)
 const router = new VueRouter({
 	mode: 'history',
 	routes: [
+		/* ==== direct version ==== */
+		{
+			path: '/',
+			component: routeURIList
+		},
+		{
+			path: '/:run/:qry/page/:page',
+			component: routeResults
+		},
+		{
+			path: '/:run/:qry/judged',
+			component: routeJudged
+		},
+		{
+			path: '/:run/:qry/:doc/highlight',
+			component: routeHighlight
+		},
+		{
+			path: '/:qry/perfect',
+			component: routePerfect
+		},
+		/* ==== prefix version ==== */
 		{
 			path: '/:route/',
 			component: routeURIList
