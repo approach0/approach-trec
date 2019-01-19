@@ -63,7 +63,8 @@ Promise.all([promise_docs, promise_topics, promise_judges]).then(() => {
 });
 
 app.use(history({verbose: true}));
-app.use(express.static('./dist'));
+app.use(express.static('dist'));
+app.use('/trecfiles', express.static('trecfiles'))
 app.use(bodyParser.json());
 const port = 3838;
 app.listen(port);

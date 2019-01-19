@@ -59,14 +59,14 @@ export default {
 		console.log('Route updated.');
 	},
 	mounted: function () {
-		console.log('mounted.');
+		console.log('mounted route-highlight.vue');
 		this.updateResults();
 	},
 	methods: {
-		prefix: function (o) {
-			if (o === undefined)
-				return '';
+		prefix: function () {
 			const route = this.$route.params['route'];
+			if (route === undefined)
+				return '';
 			return `/${route}`;
 		},
 		renderMermaid: function () {

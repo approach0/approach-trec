@@ -7,7 +7,7 @@ module.exports = {
   output: {
     filename: 'bundle.js',
 	path: __dirname + '/dist',
-	publicPath: '/'
+	publicPath: '/ecir2019/'
   },
   module: {
     rules: [
