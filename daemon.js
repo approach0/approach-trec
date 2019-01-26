@@ -13,7 +13,7 @@ const topic_list_file = "topics.txt"
 const judge_list_file = "judge.dat"
 
 const run_file_list = ['uni-beta-1.dat', 'dist-2-beta-98.dat', 'dist-3-beta-90-4.dat', 'tangent-s.dat', 'mcat-nowgt-unif.dat']
-const run_file_dirs = []
+const run_file_dirs = ['a', 'b']
 const extra_download_file_list = ['eval-dat.tar.gz', 'runtime-dat.tar.gz', 'tangent-s-complete.dat', 'mcat-nowgt-unif-complete.dat']
 
 const RES_PER_PAGE = 100
@@ -300,7 +300,7 @@ function loadRunFiles () {
 				if (fname.split('/').length > 1) {
 					/* use filename as runID when run file is
 					 * in a directory */
-					const runid = fname.replace('/', '-');
+					runid = fname.replace('/', '-');
 				}
 				const doctex = doc[docid] || '';
 				var relevance = judge[qryid]  || {};
