@@ -115,9 +115,13 @@ app.get('/get/index.list', function (req, res) {
 	const qryres = run[runid][qryid];
 	const results = [];
 
+	/* fix tangent-S query-22 */
+	var L = Object.keys(qryres).length;
+	if (L > 1000) L = 1000;
+
 	/* put results in a temporary list for reranking */
 	const tmp_results = [];
-	for (var i = 1; i <= Object.keys(qryres).length; i++) {
+	for (var i = 1; i <= L; i++) {
 		if (i in qryres) {
 			tmp_results.push(qryres[i]);
 		} else {
